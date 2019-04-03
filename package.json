@@ -1,0 +1,18 @@
+{
+  "name": "math-website",
+  "version": "1.0.0",
+  "description": "A place to learn math.",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^3.2.6",
+    "ejs": "^2.6.1",
+    "method-override": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hao Teng",
+  "license": "MIT"
+}
