@@ -32,10 +32,17 @@ var userData = {
 };
 
 app.post('/start', (req,res) => {
-  userData.name = req.body.player_name;
-  userData.grade = req.body.player_grade;
-  console.log(userData.name + " is playing the game.");
-  res.redirect("/question");
+  console.log(req.body.player_name);
+  console.log(req.body.player_grade);
+  if (req.body.player_name !== "" && req.body.player_grade != undefined){
+    userData.name = req.body.player_name;
+    userData.grade = req.body.player_grade;
+    console.log(userData.name + " is playing the game.");
+    res.redirect("/question");
+  } else {
+    res.redirect("/start");
+  }
+
 });
 
 
@@ -57,6 +64,7 @@ app.post("/question", (req,res) => {
   userQuestionResult.question_answer = req.body.answer;
   // Compare the data
   // Redirect to the result page
+  console.log("Here is the result: " + userQuestionResult.question_answer);
   res.redirect("/result");
 });
 
