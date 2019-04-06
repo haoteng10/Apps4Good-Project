@@ -2,10 +2,10 @@
 
 		<form action="question" method="POST">
 			<p id = "question_text"><%=chosenQuestion.question%></p>
-			<input type="radio" name="answer" value="Answer1"><%= chosenQuestion.selections[0] %><br>
-			<input type="radio" name="answer" value="Answer2"><%= chosenQuestion.selections[1] %><br>
-			<input type="radio" name="answer" value="Answer3"><%= chosenQuestion.selections[2] %><br>
-			<input type="radio" name="answer" value="Answer4"><%= chosenQuestion.selections[3] %><br>
+			<input type="radio" name="answer" value="<%= chosenQuestion.selections[0] %>"><%= chosenQuestion.selections[0] %><br>
+			<input type="radio" name="answer" value="<%= chosenQuestion.selections[1] %>"><%= chosenQuestion.selections[1] %><br>
+			<input type="radio" name="answer" value="<%= chosenQuestion.selections[2] %>"><%= chosenQuestion.selections[2] %><br>
+			<input type="radio" name="answer" value="<%= chosenQuestion.selections[3] %>"><%= chosenQuestion.selections[3] %><br>
 			<input type="submit" value="Submit">
 		</form>
 

@@ -37,6 +37,7 @@ router.post('/start', (req,res) => {
 
 var question_datas = [
         {
+            id: 0,
             question: "Use four 6’s and any math signs to make 7. How many ‘+’ signs did you use?",
             selections: ["0", "1", "2", "3"],
             correctChoice: "1"
@@ -45,12 +46,12 @@ var question_datas = [
 
 var chosenQuestion = question_datas[0];
 
-// Fetch the question page
+// Question GET route (SHOW the USER a question)
 router.get("/question", (req, res) => {
   res.render("question_form", {chosenQuestion: chosenQuestion});
 });
 
-// Question POST route 
+// Question POST route (DATA created by USER)
 
 var userQuestionResult = {
   question_id : null,
@@ -59,7 +60,7 @@ var userQuestionResult = {
 
 router.post("/question", (req,res) => {
   // Get the data
-  userQuestionResult.question_id = req.body.id;
+  userQuestionResult.question_id = chosenQuestion.id;
   userQuestionResult.question_answer = req.body.answer;
   // Compare the data
   // Redirect to the result page
@@ -68,9 +69,27 @@ router.post("/question", (req,res) => {
 });
 
 
+// Answer Comparison
+function compareAnswers(id, userAnswer){
+    var correctQuestionData = question_datas[id];
+    if (correctQuestionData.correctChoice == userAnswer) {
+        return true;
+    }
+    return false;
+}
+
+
 // Fetch the result page
 router.get("/result", (req, res) => {
-  res.render("result");
+    var checks = compareAnswers(userQuestionResult.question_id, userQuestionResult.question_answer);
+    
+    var correctOrNot = "Incorrect";
+    
+    if (checks) {
+        correctOrNot = "Correct";
+    } 
+    
+    res.render("result", {correctOrNot: correctOrNot});
 });
 
 module.exports = router;
