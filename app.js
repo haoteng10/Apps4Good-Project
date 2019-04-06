@@ -12,11 +12,15 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+//Require routes
 var indexRoutes = require("./routes/index");
+
+// Use routes
 app.use("/", indexRoutes);
 
 
 // Node.js Application 
-app.listen(process.env.PORT, process.env.IP, () => {
+app.listen(3000, () => {
   console.log('Server has started!');
+  console.log('https://Apps4Good-Project-haoteng10210271.codeanyapp.com');
 });
