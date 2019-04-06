@@ -2,7 +2,7 @@ body {
 	background-color: lightblue;
 }
 
-img {
+.special-image {
 	width: 300px;
 	height: 300px;
 	margin: auto;
@@ -68,4 +68,5 @@ input[type=submit] {
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
+	margin-top: 20px;
 }

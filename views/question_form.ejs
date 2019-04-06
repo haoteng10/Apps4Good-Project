@@ -2,6 +2,9 @@
 
 		<form action="question" method="POST">
 			<p id = "question_text"><%=chosenQuestion.question%></p>
+			<% if (chosenQuestion.image != undefined) { %>
+				<img src="<%= chosenQuestion.image %>" alt="image"> <p></p>
+			<% } %>
 			<input type="radio" name="answer" value="<%= chosenQuestion.selections[0] %>"><%= chosenQuestion.selections[0] %><br>
 			<input type="radio" name="answer" value="<%= chosenQuestion.selections[1] %>"><%= chosenQuestion.selections[1] %><br>
 			<input type="radio" name="answer" value="<%= chosenQuestion.selections[2] %>"><%= chosenQuestion.selections[2] %><br>

@@ -42,6 +42,7 @@ var question_datas = [
             id: 0,
             question: "Use four 6’s and any math signs to make 7. How many ‘+’ signs did you use?",
             selections: ["0", "1", "2", "3"],
+            image: "https://www.google.com/logos/doodles/2019/hedwig-kohns-132nd-birthday-6626820043571200.4-l.png",
             correctChoice: "1"
         },
         {
