@@ -70,3 +70,14 @@ input[type=submit] {
 	font-size: 16px;
 	margin-top: 20px;
 }
+
+.button {
+	font: bold 11px;
+	text-decoration: none;
+  background-color: white;
+  color: #3eb7ef;
+  text-align: center;
+  padding: 15px 32px;
+  border: 2px solid;
+  border-color: #3eb7ef;
+}

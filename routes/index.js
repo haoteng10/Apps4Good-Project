@@ -73,16 +73,14 @@ function randomizer(passedArray){
 // Question GET route (SHOW the USER a question)
 router.get("/question", (req, res) => {
     chosenQuestion = question_datas[randomizer(question_datas)];
-    
-    var counter = 0;
-    
-    while(req.session.userData.questions.includes(chosenQuestion.id) && counter < 50){
+
+    while(req.session.userData.questions.includes(chosenQuestion.id)){
       if (req.session.userData.questions.length > question_datas.length){
-        res.send("Congratulations, you had completed all of the questions!");
+        res.render("congratulations");
         break;
+      } else {
+        chosenQuestion = question_datas[randomizer(question_datas)];
       }
-      chosenQuestion = question_datas[randomizer(question_datas)];
-      counter++;
     }
     
     console.log(req.session.userData.questions.includes(chosenQuestion.id));
