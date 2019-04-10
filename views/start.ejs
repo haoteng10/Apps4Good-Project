@@ -1,15 +1,19 @@
 <% include ./partials/header %>
-
+	<div class="as-container">
 		<form action="start" method="post">
-			<p>Please fill out your information!</p>
+			<h2>Please fill out your information!</h2>
 			
 			Name:
+			<br>
+			
 			<input type="text" name="player_name" value=""><br>
-			<input type="radio" name="player_grade" value="9">Freshmen<br>
-			<input type="radio" name="player_grade" value="10">Sophomore<br>
-			<input type="radio" name="player_grade" value="11">Junior<br>
-			<input type="radio" name="player_grade" value="12">Senior<br>
+			<label class="container"><input type="radio" name="player_grade" value="9">Freshmen<span class="checkmark"></span><br></label>
+			<label class="container"><input type="radio" name="player_grade" value="10">Sophomore<span class="checkmark"></span><br></label>
+			<label class="container"><input type="radio" name="player_grade" value="11">Junior<span class="checkmark"></span><br></label>
+			<label class="container"><input type="radio" name="player_grade" value="12">Senior<span class="checkmark"></span><br></label>
 			<input type="submit" value="Submit">
 		</form>
+	</div>
+
 		
 <% include ./partials/footer %>

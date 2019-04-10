@@ -52,7 +52,7 @@ li a:hover {
 }
 
 input[type=text] {
-  width: 100%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -151,4 +151,8 @@ input[type=submit]:hover {
   height: 8px;
   border-radius: 50%;
   background: white;
+}
+
+.as-container {
+  margin: 3% 3.33% 3% 3.33%;
 }
