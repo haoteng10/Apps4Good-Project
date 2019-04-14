@@ -1,5 +1,5 @@
 var express = require('express');
-var app = express();
+app = express();
 var session = require('express-session');
 
 
@@ -20,7 +20,17 @@ var indexRoutes = require("./routes/index");
 app.use("/", indexRoutes);
 
 
+var scoreboard = {
+    name: "Guest", 
+    score: 0
+    }
+    
+app.locals = {
+    scoreboard: scoreboard
+};
+
 // Node.js Application 
 app.listen(3000, () => {
   console.log('Server has started!');
+  console.log("updated");
 });

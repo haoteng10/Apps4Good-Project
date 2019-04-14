@@ -11,12 +11,6 @@ body {
 
 .grid-container {
 	display: grid;
-	grid-gap: 0;
-	grid-template-columns: 300px 300px;
-}
-
-.grid-item {
-	display: flex;
 }
 
 #header {
@@ -42,9 +36,25 @@ li {
 li a {
 	display: block;
 	text-align: center;
-	padding: 14px 16px;
+	padding: 26px 25px 28px 20px;
 	text-decoration: none;
 	color: white;
+	
+}
+
+.scoreboard {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    color: white;
+}
+
+.scoreboard .username, .scoreboard .score {
+    font-size: 1.2em;
+}
+
+.scoreboard .special {
+    font-weight: bold;
 }
 
 li a:hover {

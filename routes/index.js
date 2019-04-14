@@ -30,6 +30,9 @@ router.post('/start', (req,res) => {
     
     req.session.userData = userData;
     
+    app.locals.scoreboard.name = req.session.userData.name;
+    app.locals.scoreboard.score = 0;
+    
     console.log("Session questions: " + req.session.userData.questions);
     
     console.log(req.session.userData.name + " is playing the game.");
@@ -160,6 +163,7 @@ router.get("/result", (req, res) => {
     
     if (checks) {
         correctOrNot = "CORRECT";
+        app.locals.scoreboard.score++;
     } 
     
     res.render("result", {correctOrNot: correctOrNot});
