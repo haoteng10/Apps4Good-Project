@@ -97,6 +97,11 @@ input[type=submit]:hover {
   border-color: #3eb7ef;
 }
 
+.button:hover {
+  background-color: #2a9cc1;
+  color: white;
+}
+
 /* Customize the label (the container) */
 .container {
   display: block;
