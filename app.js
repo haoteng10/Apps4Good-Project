@@ -13,7 +13,9 @@ app.use(methodOverride("_method"));
 //app.use(express.static(__dirname + "/public"));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  'secret': 'express app is the best'
+    secret: 'express app is the best',
+    resave: true,
+    saveUninitialized: true
 }));
 
 var indexRoutes = require("./routes/index");
@@ -29,8 +31,10 @@ app.locals = {
     scoreboard: scoreboard
 };
 
+
 // Node.js Application 
 app.listen(3000, () => {
+
   console.log('Server has started!');
   console.log("updated");
 });

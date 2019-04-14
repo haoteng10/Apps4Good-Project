@@ -1,7 +1,7 @@
 var express = require("express");
 var router  = express.Router();
 
-
+var notStarted = true;
 // Main GET route
 
 router.get("/", (req, res) => {
@@ -32,6 +32,8 @@ router.post('/start', (req,res) => {
     
     app.locals.scoreboard.name = req.session.userData.name;
     app.locals.scoreboard.score = 0;
+    
+    notStarted = false;
     
     console.log("Session questions: " + req.session.userData.questions);
     
@@ -101,26 +103,32 @@ function randomizer(passedArray){
 
 // Question GET route (SHOW the USER a question)
 router.get("/question", (req, res) => {
-    chosenQuestion = question_datas[randomizer(question_datas)];
-
-    while(req.session.userData.questions.includes(chosenQuestion.id)){
-      if (req.session.userData.questions.length > question_datas.length){
-        res.render("congratulations");
-        break;
-      } else {
+    
+    if(notStarted != true){
         chosenQuestion = question_datas[randomizer(question_datas)];
-      }
+        
+        while(req.session.userData.questions.includes(chosenQuestion.id)){
+            if (req.session.userData.questions.length > question_datas.length){
+                res.render("congratulations");
+                break;
+              } else {
+                chosenQuestion = question_datas[randomizer(question_datas)];
+              }
+            }
+            
+        console.log(req.session.userData.questions.includes(chosenQuestion.id));
+            
+        console.log("The original array is " + req.session.userData.questions);
+            
+        var arrayLength = req.session.userData.questions.push(chosenQuestion.id);
+        console.log("User data now has: " + req.session.userData.questions);
+        console.log("Chosen question id is " + chosenQuestion.id);
+    
+        res.render("question_form", {chosenQuestion: chosenQuestion});  
+    } else {
+        res.redirect("/");
     }
-    
-    console.log(req.session.userData.questions.includes(chosenQuestion.id));
-    
-    console.log("The original array is " + req.session.userData.questions);
-    
-    var arrayLength = req.session.userData.questions.push(chosenQuestion.id);
-    console.log("User data now has: " + req.session.userData.questions);
-    console.log("Chosen question id is " + chosenQuestion.id);
 
-    res.render("question_form", {chosenQuestion: chosenQuestion});
     
 });
 
