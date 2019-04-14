@@ -1,5 +1,5 @@
 var express = require('express');
-app = express();
+var app = express();
 var session = require('express-session');
 
 
@@ -33,7 +33,7 @@ app.locals = {
 
 
 // Node.js Application 
-app.listen(3000, () => {
+app.listen(process.env.PORT, process.env.IP, () => {
 
   console.log('Server has started!');
   console.log("updated");

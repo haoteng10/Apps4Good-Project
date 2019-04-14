@@ -1,4 +1,5 @@
 var express = require("express");
+var appFile = require("app");
 var router  = express.Router();
 
 var notStarted = true;
@@ -120,7 +121,7 @@ router.get("/question", (req, res) => {
             
         console.log("The original array is " + req.session.userData.questions);
             
-        var arrayLength = req.session.userData.questions.push(chosenQuestion.id);
+        req.session.userData.questions.push(chosenQuestion.id);
         console.log("User data now has: " + req.session.userData.questions);
         console.log("Chosen question id is " + chosenQuestion.id);
     
@@ -171,7 +172,7 @@ router.get("/result", (req, res) => {
     
     if (checks) {
         correctOrNot = "CORRECT";
-        app.locals.scoreboard.score++;
+        appFile.app.locals.scoreboard.score++;
     } 
     
     res.render("result", {correctOrNot: correctOrNot});
