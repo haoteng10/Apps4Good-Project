@@ -25,12 +25,11 @@ app.use("/", indexRoutes);
 var scoreboard = {
     name: "Guest", 
     score: 0
-    }
+    };
     
 app.locals = {
     scoreboard: scoreboard
 };
-
 
 // Node.js Application 
 app.listen(process.env.PORT, process.env.IP, () => {
@@ -38,3 +37,5 @@ app.listen(process.env.PORT, process.env.IP, () => {
   console.log('Server has started!');
   console.log("updated");
 });
+
+module.exports.scoreboard = app.locals.scoreboard;

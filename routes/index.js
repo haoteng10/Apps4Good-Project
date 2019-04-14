@@ -1,5 +1,5 @@
 var express = require("express");
-var appFile = require("app");
+var appFile = require("../app");
 var router  = express.Router();
 
 var notStarted = true;
@@ -31,8 +31,8 @@ router.post('/start', (req,res) => {
     
     req.session.userData = userData;
     
-    app.locals.scoreboard.name = req.session.userData.name;
-    app.locals.scoreboard.score = 0;
+    appFile.scoreboard.name = req.session.userData.name;
+    appFile.scoreboard.score = 0;
     
     notStarted = false;
     
@@ -172,7 +172,7 @@ router.get("/result", (req, res) => {
     
     if (checks) {
         correctOrNot = "CORRECT";
-        appFile.app.locals.scoreboard.score++;
+        appFile.scoreboard.score++;
     } 
     
     res.render("result", {correctOrNot: correctOrNot});
