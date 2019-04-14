@@ -1,5 +1,5 @@
 var express = require('express');
-var app = express();
+app = express();
 var session = require('express-session');
 
 
@@ -13,14 +13,28 @@ app.use(methodOverride("_method"));
 //app.use(express.static(__dirname + "/public"));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  'secret': 'express app is the best'
+    secret: 'express app is the best',
+    resave: true,
+    saveUninitialized: true
 }));
 
 var indexRoutes = require("./routes/index");
 app.use("/", indexRoutes);
 
 
+var scoreboard = {
+    name: "Guest", 
+    score: 0
+    }
+    
+app.locals = {
+    scoreboard: scoreboard
+};
+
+
 // Node.js Application 
-app.listen(process.env.PORT, process.env.IP, () => {
+app.listen(3000, () => {
+
   console.log('Server has started!');
+  console.log("updated");
 });
