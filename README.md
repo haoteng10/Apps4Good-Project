@@ -2,4 +2,4 @@
 
 ## Math-Learner Project
 
-[Development Website (Not always available)] (https://math-game-haoteng.c9users.io/)
+Development Website: [https://math-game-haoteng.c9users.io/] (https://math-game-haoteng.c9users.io/)
