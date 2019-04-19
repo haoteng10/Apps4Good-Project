@@ -1,23 +1,32 @@
 var express = require("express");
-var appFile = require("../app");
 var router  = express.Router();
 
-var notStarted = true;
+var localSession = function(req, res, next) {
+  if (req.session.userData == undefined){
+    res.locals.scoreboard = {
+      started: false
+    };
+  } else {
+    res.locals.scoreboard = req.session.userData.scoreboard;
+  }
+  
+  next();
+};
 
 // Main GET route
 
-router.get("/", (req, res) => {
+router.get("/", localSession, (req, res) => {
   res.render("index.ejs");
 });
 
 // Info GET route
-router.get("/info", (req, res) => {
+router.get("/info", localSession, (req, res) => {
   res.render("information.ejs");
 });
 
 // Fetch the start page
 
-router.get('/start', (req, res) => {
+router.get('/start', localSession, (req, res) => {
   res.render("start");
 });
 
@@ -32,15 +41,15 @@ router.post('/start', (req,res) => {
     var userData = {
       name: req.body.player_name,
       grade: req.body.player_grade,
+      scoreboard: {
+        name: req.body.player_name, 
+        score: 0,
+        started: true
+      },
       questions: [-1]
     };
     
     req.session.userData = userData;
-    
-    appFile.scoreboard.name = req.session.userData.name;
-    appFile.scoreboard.score = 0;
-    
-    notStarted = false;
     
     console.log("Session questions: " + req.session.userData.questions);
     
@@ -109,9 +118,9 @@ function randomizer(passedArray){
 
 
 // Question GET route (SHOW the USER a question)
-router.get("/question", (req, res) => {
+router.get("/question", localSession, (req, res) => {
     
-    if(notStarted == false){
+    if(req.session.userData.scoreboard.started == true){
         chosenQuestion = question_datas[randomizer(question_datas)];
         
         if(req.session.userData.questions.length > question_datas.length) { 
@@ -174,14 +183,14 @@ function compareAnswers(id, userAnswer){
 
 
 // Result GET route (Fetch the result page)
-router.get("/result", (req, res) => {
+router.get("/result", localSession, (req, res) => {
     var checks = compareAnswers(userQuestionResult.question_id, userQuestionResult.question_answer);
     
     var correctOrNot = "INCORRECT";
     
     if (checks) {
         correctOrNot = "CORRECT";
-        appFile.scoreboard.score++;
+        req.session.userData.scoreboard.score++;
     } 
     
     res.render("result", {correctOrNot: correctOrNot});
