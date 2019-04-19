@@ -1,32 +1,21 @@
 var express = require("express");
 var router  = express.Router();
-
-var localSession = function(req, res, next) {
-  if (req.session.userData == undefined){
-    res.locals.scoreboard = {
-      started: false
-    };
-  } else {
-    res.locals.scoreboard = req.session.userData.scoreboard;
-  }
-  
-  next();
-};
+var middleware = require("../middleware");
 
 // Main GET route
 
-router.get("/", localSession, (req, res) => {
+router.get("/", middleware.localSession, (req, res) => {
   res.render("index.ejs");
 });
 
 // Info GET route
-router.get("/info", localSession, (req, res) => {
+router.get("/info", middleware.localSession, (req, res) => {
   res.render("information.ejs");
 });
 
 // Fetch the start page
 
-router.get('/start', localSession, (req, res) => {
+router.get('/start', middleware.localSession, (req, res) => {
   res.render("start");
 });
 
@@ -118,7 +107,7 @@ function randomizer(passedArray){
 
 
 // Question GET route (SHOW the USER a question)
-router.get("/question", localSession, (req, res) => {
+router.get("/question", middleware.localSession, (req, res) => {
     
     if(req.session.userData.scoreboard.started == true){
         chosenQuestion = question_datas[randomizer(question_datas)];
@@ -183,7 +172,7 @@ function compareAnswers(id, userAnswer){
 
 
 // Result GET route (Fetch the result page)
-router.get("/result", localSession, (req, res) => {
+router.get("/result", middleware.localSession, (req, res) => {
     var checks = compareAnswers(userQuestionResult.question_id, userQuestionResult.question_answer);
     
     var correctOrNot = "INCORRECT";
