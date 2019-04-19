@@ -99,18 +99,11 @@ var question_datas = [
 // Default Chosen Question
 var chosenQuestion = question_datas[0];
 
-
-// Question randomizer
-function randomizer(passedArray){
-    return Math.floor(Math.random() * passedArray.length);
-}
-
-
 // Question GET route (SHOW the USER a question)
 router.get("/question", middleware.localSession, (req, res) => {
     
     if(req.session.userData.scoreboard.started == true){
-        chosenQuestion = question_datas[randomizer(question_datas)];
+        chosenQuestion = question_datas[middleware.randomizer(question_datas)];
         
         if(req.session.userData.questions.length > question_datas.length) { 
           res.render("congratulations");
@@ -118,7 +111,7 @@ router.get("/question", middleware.localSession, (req, res) => {
         } else {
         
           while(req.session.userData.questions.includes(chosenQuestion.id)){
-                  chosenQuestion = question_datas[randomizer(question_datas)];
+                  chosenQuestion = question_datas[middleware.randomizer(question_datas)];
               }  
           
   
@@ -157,23 +150,9 @@ router.post("/question", (req,res) => {
   res.redirect("/result");
 });
 
-
-// Answer Comparison
-function compareAnswers(id, userAnswer){
-    var correctQuestionData = question_datas[id];
-    if (correctQuestionData.correctChoice == userAnswer) {
-        console.log("The player chose the correct answer.");
-        return true;
-    } else {
-        console.log("The player chose the wrong answer. The correct answer is " + correctQuestionData.correctChoice);
-    }
-    return false;
-}
-
-
 // Result GET route (Fetch the result page)
 router.get("/result", middleware.localSession, (req, res) => {
-    var checks = compareAnswers(userQuestionResult.question_id, userQuestionResult.question_answer);
+    var checks = middleware.compareAnswers(question_datas, userQuestionResult.question_id, userQuestionResult.question_answer);
     
     var correctOrNot = "INCORRECT";
     
