@@ -33,7 +33,8 @@ router.post('/start', (req,res) => {
       scoreboard: {
         name: req.body.player_name, 
         score: 0,
-        started: true
+        started: true,
+        checks: null
       },
       questions: [-1]
     };
@@ -145,6 +146,9 @@ router.post("/question", (req,res) => {
   userQuestionResult.question_id = chosenQuestion.id;
   userQuestionResult.question_answer = req.body.answer;
   // Compare the data
+  
+    req.session.userData.checks = middleware.compareAnswers(question_datas, userQuestionResult.question_id, userQuestionResult.question_answer, req);
+    
   // Redirect to the result page
   console.log("The player chose the answer: " + userQuestionResult.question_answer);
   res.redirect("/result");
@@ -152,16 +156,17 @@ router.post("/question", (req,res) => {
 
 // Result GET route (Fetch the result page)
 router.get("/result", middleware.localSession, (req, res) => {
-    var checks = middleware.compareAnswers(question_datas, userQuestionResult.question_id, userQuestionResult.question_answer);
-    
     var correctOrNot = "INCORRECT";
     
-    if (checks) {
-        correctOrNot = "CORRECT";
-        req.session.userData.scoreboard.score++;
-    } 
+    if (req.session.userData == undefined || req.session.userData.checks == null) {
+      res.redirect("/");  
+    } else if (req.session.userData.checks == true){
+      correctOrNot = "CORRECT";
+      res.render("result", {correctOrNot: correctOrNot});
+    } else if (req.session.userData.checks == false){
+      res.render("result", {correctOrNot: correctOrNot});
+    }
     
-    res.render("result", {correctOrNot: correctOrNot});
 });
 
 module.exports = router;
