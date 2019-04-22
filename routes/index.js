@@ -44,9 +44,9 @@ router.post('/start', (req,res) => {
     console.log("Session questions: " + req.session.userData.questions);
     
     console.log(req.session.userData.name + " is playing the game.");
-    res.redirect("/question");
+    res.redirect("question");
   } else {
-    res.redirect("/start");
+    res.redirect("start");
   }
 
 });
@@ -151,7 +151,7 @@ router.post("/question", (req,res) => {
     
   // Redirect to the result page
   console.log("The player chose the answer: " + userQuestionResult.question_answer);
-  res.redirect("/result");
+  res.redirect("result");
 });
 
 // Result GET route (Fetch the result page)
