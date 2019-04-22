@@ -1,5 +1,7 @@
 body {
 	background-color: lightblue;
+	margin:0;
+  padding:0;
 }
 
 .special-image {
@@ -18,6 +20,10 @@ body {
 	color: green;
 }
 
+.nav {
+  margin: 4px 8px;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -25,12 +31,11 @@ ul {
   overflow: hidden;
   width: 100%;
   background-color: #0ea6ed;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 li {
   float: left;
-  display: inline-block;
 }
 
 li a {
@@ -40,6 +45,10 @@ li a {
 	text-decoration: none;
 	color: white;
 	
+}
+
+li a:hover {
+	background-color: black;
 }
 
 .scoreboard {
@@ -55,10 +64,6 @@ li a {
 
 .scoreboard .special {
     font-weight: bold;
-}
-
-li a:hover {
-	background-color: black;
 }
 
 input[type=text] {
