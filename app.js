@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var session = require('express-session');
+var mongoose = require('mongoose');
 
 
 var bodyParser = require("body-parser");
@@ -9,6 +10,11 @@ var path = require('path');
 
 var port = process.env.PORT || 3000;
 var ip = process.env.IP || "0.0.0.0";
+
+//var url = process.env.DATABASEURL || "mongodb://localhost/math-success";
+var url = "mongodb://admin:8Hdm6fxQfLr7K42@ds053305.mlab.com:53305/math-success";
+
+mongoose.connect(url, { useNewUrlParser: true });
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));

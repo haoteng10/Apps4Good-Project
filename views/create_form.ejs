@@ -1,0 +1,16 @@
+<% include ./partials/header %>
+
+	<div style="margin: 5% 33.33%">
+		<form action="question" method="POST">
+			Problem Statement: <input type="text" name="question[problemStatement]" value=""> <br>
+			Choice 1: <input type="text" name="question[choice1]" value=""> <br>
+			Choice 2: <input type="text" name="question[choice2]" value=""> <br>
+			Choice 3: <input type="text" name="question[choice3]" value=""> <br>
+			Choice 4: <input type="text" name="question[choice4]" value=""> <br>
+			Choice 5: <input type="text" name="question[choice5]" value=""> <br>
+			Correct Answer: <input type="text" name="question[correctChoice]" value=""> <br>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+<% include ./partials/footer %>

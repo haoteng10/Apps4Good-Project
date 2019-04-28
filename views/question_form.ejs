@@ -1,6 +1,6 @@
 <% include ./partials/header %>
 	<div style="margin: 5% 33.33%">
-		<form action="question" method="POST">
+		<form action="question-user-submit" method="POST">
 			<p id = "question_text"><%=chosenQuestion.question%></p>
 			<% if (chosenQuestion.image != undefined) { %>
 				<img src="<%= chosenQuestion.image %>" alt="image"> <p></p>
