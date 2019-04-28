@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+
+	<div style="margin: 5% 33.33%">
+		<form action="question?_method=PUT" method="POST">
+            Question ID <input type="text" name="id" value="<%= inputID %>"> <br>
+			Problem Statement: <input type="text" name="question[problemStatement]" value="<%= question.question %>"> <br>
+			Choice 1: <input type="text" name="question[choice1]" value="<%= question.selections[0] %>"> <br>
+			Choice 2: <input type="text" name="question[choice2]" value="<%= question.selections[1] %>"> <br>
+			Choice 3: <input type="text" name="question[choice3]" value="<%= question.selections[2] %>"> <br>
+			Choice 4: <input type="text" name="question[choice4]" value="<%= question.selections[3] %>"> <br>
+			Choice 5: <input type="text" name="question[choice5]" value="<%= question.selections[4] %>"> <br>
+            Correct Answer: <input type="text" name="question[correctChoice]" value="<%= question.correctChoice %>"> <br>
+            <% if (question.image != undefined) { %>
+                Image URL: <input type="text" name="question[imageUrl]" value="<%= question.image %>"> <br>
+            <% } %>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+<% include ../partials/footer %>

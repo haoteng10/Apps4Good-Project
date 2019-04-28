@@ -1,6 +1,7 @@
 var express = require("express");
 var router  = express.Router();
 var middleware = require("../middleware");
+const ejsLint = require('ejs-lint');
 
 var Question = require('../models/Question');
 
@@ -149,6 +150,45 @@ router.get("/question", middleware.localSession, (req, res) => {
   
 });
 
+// Question EDIT route
+router.put("/question", (req, res) => {
+
+  var updatedQuestion = {
+    question: req.body.question.problemStatement,
+    selections: [],
+    correctChoice: req.body.question.correctChoice,
+    image: undefined
+  };
+
+  for(var i=0; i <5; i++){
+    var combinedString = "req.body.question.choice" + (i+1);
+
+    if((eval(combinedString)) !== ""){
+      updatedQuestion.selections.push(eval(combinedString));
+    }
+  }
+  
+  if (req.body.imageUrl !== ""){
+    updatedQuestion.image = req.body.imageUrl; 
+  }
+
+  Question.findByIdAndUpdate(req.body.id, updatedQuestion, function(err, foundQuestion){
+      if (err){
+        console.log("error");
+      } else {
+        console.log("Question with ID: " + req.body.id + " is been updated");
+        res.redirect("admin")
+      }
+  });
+});
+
+// Question Remove route
+router.delete("/question", (req, res)=> {
+  var id = req.body.id;
+  Question.findByIdAndRemove(id).exec();
+  res.redirect("admin");
+});
+
 // Question POST route
 router.post('/question', (req, res)=> {
 
@@ -175,7 +215,7 @@ router.post('/question', (req, res)=> {
     if (err){
       console.log(err);
     } else {
-      res.redirect("new-question");
+      res.redirect("admin");
     }
   });
 
@@ -184,7 +224,24 @@ router.post('/question', (req, res)=> {
 
 // New Questions GET route
 router.get("/new-question", middleware.localSession, (req, res) =>{
-  res.render("create_form");
+  res.render("administration/create_form");
+});
+
+// Update Question GET route
+
+router.get("/update-question", middleware.localSession, (req, res) => {
+  Question.findById(req.query.id, function(err, foundQuestion){
+    res.render("administration/update_form", {inputID: req.query.id, question: foundQuestion});
+  });
+});
+
+
+// Administration route
+
+router.get("/admin", middleware.localSession, (req, res) => {
+  Question.find().then(function(results){
+    res.render("administration/admin", {questions: results});
+  });
 });
 
 var userQuestionResult = {

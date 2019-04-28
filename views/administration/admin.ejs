@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+    <div class="box-info">
+        <P>Create a Question</P>
+        <form action="new-question" method="GET">
+            <input type="submit" name="process" value="Create" />
+        </form>
+    </div>
+
+    <% questions.forEach(function(question){ %>
+        <div class="box-info">
+            Problem Statement: <%= question.question %> <br>
+            <% question.selections.forEach(function(selection){ %>
+                Choice <%= question.selections.indexOf(selection)+1 %>: <%= selection %>
+                <br>
+            <% }) %>
+            <form action="update-question" method="GET">
+                <input type="hidden" name="id" value="<%= question._id %>" />
+                <input type="submit" value="Update" />
+            </form>
+            <form action="question?_method=DELETE" method="POST">
+                <input type="hidden" name="id" value="<%= question._id %>" />
+                <input type="submit" value="Delete" />
+            </form>
+        </div>
+    <% }); %>
+
+<% include ../partials/footer %>

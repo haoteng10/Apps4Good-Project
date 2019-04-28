@@ -11,17 +11,18 @@
 	</head>
 	
 	<body>
-		<ul class="nav" role="navigation">
-			<li class="item"><a href="/">Home</a></li>
-			<li class="item"><a href="/info">Info</a></li>
-			<li class="item"><a href="start">Start a New Game</a></li>
-			<% if (scoreboard.started == true) {%>
-				<li class="item"><a href="question">Resume Answering Questions</a></li>
-				<li class="item">
-				     <div class="scoreboard">
-				             <div class="username"> User: <span class= "special"> <%= scoreboard.name %> </span></div> 
-				             <div class="score">    Score: <span class= "special"> <%= scoreboard.score %> </span></div>
-				     </div>
-				</li>
-			<% } %>
-		</ul>
+		<div class="content">
+			<ul class="nav" role="navigation">
+				<li class="item"><a href="/">Home</a></li>
+				<li class="item"><a href="/info">Info</a></li>
+				<li class="item"><a href="start">Start a New Game</a></li>
+				<% if (scoreboard.started == true) {%>
+					<li class="item"><a href="question">Resume Answering Questions</a></li>
+					<li class="item">
+						<div class="scoreboard">
+								<div class="username"> User: <span class= "special"> <%= scoreboard.name %> </span></div> 
+								<div class="score">    Score: <span class= "special"> <%= scoreboard.score %> </span></div>
+						</div>
+					</li>
+				<% } %>
+			</ul>

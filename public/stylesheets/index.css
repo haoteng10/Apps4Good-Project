@@ -177,7 +177,7 @@ input[type=submit]:hover {
   margin: 3% 3.33% 3% 3.33%;
 }
 
-.introduction {
+.introduction, .box-info {
   margin: 3% 40%;
   margin-top: 4px;
   border: 4px solid;

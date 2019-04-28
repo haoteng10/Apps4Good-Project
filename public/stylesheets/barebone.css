@@ -1,7 +1,17 @@
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
+html, body{
+	height: 100%;
+}
+
 body{
 	font:14px/1.5 Arial, Helvetica, sans-serif;
+	display: flex;
+  	flex-direction: column;
+}
+
+.content {
+	flex: 1 0 auto;
 }
 
 header{
@@ -23,11 +33,12 @@ header h2{
 /* In our demo, the footers are fixed to the bottom of the page */
 
 footer{
-	position: fixed;
+	 /* position: fixed; */
 	bottom: 0;
+	flex-shrink: 0;
 }
 
-@media (max-height:800px){
+@media (max-height:100%){
 	footer { position: static; }
 	header { padding-top:40px; }
 }
