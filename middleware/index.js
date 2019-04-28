@@ -29,13 +29,4 @@ middlewareObj.compareAnswers = function compareAnswers(question_datas, id, userA
     return false;
 };
 
-middlewareObj.isIncludes = function isIncludes(req, inputQuestion){
-  req.session.userData.questions.forEach(function(question){
-    if (question._id == inputQuestion._id){
-      return true;
-      }
-    return false;
-  });
-};
-
 module.exports = middlewareObj;

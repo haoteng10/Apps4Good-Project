@@ -92,6 +92,19 @@ var question_datas = [
 
     ];
 
+function isIncludes(req, inputQuestion){
+  var value = false;
+  req.session.userData.questions.forEach(function(question){
+    if (question._id == inputQuestion._id){
+      console.log("Question ID is " + question._id);
+      console.log("Input Question ID is " + inputQuestion._id);
+      value = true;
+      }
+    
+  });
+  
+  return value;
+}
 
 // Question GET route (SHOW the USER a question)
 router.get("/question", middleware.localSession, (req, res) => {
@@ -110,11 +123,10 @@ router.get("/question", middleware.localSession, (req, res) => {
             
           } else {
           
-            while(middleware.isIncludes(req,chosenQuestion)){
-                    chosenQuestion = data[middleware.randomizer(data)];
-                }  
-            
-            
+            while(isIncludes(req,chosenQuestion)){
+                  console.log("While loop has started");
+                  chosenQuestion = data[middleware.randomizer(data)];
+                } 
     
             console.log(req.session.userData.questions.includes(chosenQuestion));
                 
@@ -122,7 +134,7 @@ router.get("/question", middleware.localSession, (req, res) => {
                 
             req.session.userData.questions.push(chosenQuestion);
             console.log("User data now has: " + req.session.userData.questions);
-            console.log("Chosen question is " + chosenQuestion);
+            console.log("Chosen question is " + chosenQuestion._id);
         
             res.render("question_form", {chosenQuestion: chosenQuestion}); 
             
