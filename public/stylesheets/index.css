@@ -200,3 +200,8 @@ input[type=submit]:hover {
 .note p {
   font-size: 1.5em;
 }
+
+.preview-image {
+  width: 80%;
+  height: 40%;
+}

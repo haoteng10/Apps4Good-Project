@@ -10,6 +10,12 @@
     <% questions.forEach(function(question){ %>
         <div class="box-info">
             Problem Statement: <%= question.question %> <br>
+
+            <% if (question.image != undefined ) { %>
+                <img class= "preview-image" src="<%= question.image %>" alt="image">
+            <% } %>
+
+            <br>
             <% question.selections.forEach(function(selection){ %>
                 Choice <%= question.selections.indexOf(selection)+1 %>: <%= selection %>
                 <br>
