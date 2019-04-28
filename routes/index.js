@@ -38,7 +38,7 @@ router.post('/start', (req,res) => {
         started: true,
         checks: null
       },
-      questions: [-1]
+      questions: []
     };
     
     req.session.userData = userData;
@@ -93,35 +93,42 @@ var question_datas = [
     ];
 
 
-// Default Chosen Question
-var chosenQuestion = question_datas[0];
-
 // Question GET route (SHOW the USER a question)
 router.get("/question", middleware.localSession, (req, res) => {
+  
     
     if(req.session.userData.scoreboard.started == true){
-        chosenQuestion = question_datas[middleware.randomizer(question_datas)];
-        
-        if(req.session.userData.questions.length > question_datas.length) { 
-          res.render("congratulations");
-          
-        } else {
-        
-          while(req.session.userData.questions.includes(question_datas.indexOf(chosenQuestion))){
-                  chosenQuestion = question_datas[middleware.randomizer(question_datas)];
-              }  
-          
-  
-          console.log(req.session.userData.questions.includes(question_datas.indexOf(chosenQuestion)));
-              
-          console.log("The original array is " + req.session.userData.questions);
-              
-          req.session.userData.questions.push(question_datas.indexOf(chosenQuestion));
-          console.log("User data now has: " + req.session.userData.questions);
-          console.log("Chosen question id is " + question_datas.indexOf(chosenQuestion));
       
-          res.render("question_form", {chosenQuestion: chosenQuestion});  
-        }
+        // Retrieve Data from MongoDB
+        
+        Question.find().then(function(data){
+          
+          var chosenQuestion = data[middleware.randomizer(data)];
+        
+          if(req.session.userData.questions.length >= data.length) { 
+            res.render("congratulations");
+            
+          } else {
+          
+            while(middleware.isIncludes(req,chosenQuestion)){
+                    chosenQuestion = data[middleware.randomizer(data)];
+                }  
+            
+            
+    
+            console.log(req.session.userData.questions.includes(chosenQuestion));
+                
+            console.log("The original array is " + req.session.userData.questions);
+                
+            req.session.userData.questions.push(chosenQuestion);
+            console.log("User data now has: " + req.session.userData.questions);
+            console.log("Chosen question is " + chosenQuestion);
+        
+            res.render("question_form", {chosenQuestion: chosenQuestion}); 
+            
+          }
+        });
+    
         
     } else {
         res.redirect("/");
@@ -136,8 +143,9 @@ router.post('/question', (req, res)=> {
   var createdQuestion = {
     question: req.body.question.problemStatement,
     selections: [],
-    correctChoice: req.body.question.correctChoice
-  }
+    correctChoice: req.body.question.correctChoice,
+    image: undefined
+  };
 
   for(var i=0; i <5; i++){
     var combinedString = "req.body.question.choice" + (i+1);
@@ -145,6 +153,10 @@ router.post('/question', (req, res)=> {
     if((eval(combinedString)) !== ""){
       createdQuestion.selections.push(eval(combinedString));
     }
+  }
+  
+  if (req.body.imageUrl !== ""){
+    createdQuestion.image = req.body.imageUrl; 
   }
   
   Question.create(createdQuestion, (err, newlyCreated)=>{
@@ -170,16 +182,39 @@ var userQuestionResult = {
 
 // Question-User-Submit POST route (DATA created by USER)
 router.post("/question-user-submit", (req,res) => {
-  // Get the data
-  userQuestionResult.question_id = question_datas.indexOf(chosenQuestion);
-  userQuestionResult.question_answer = req.body.answer;
-  // Compare the data
   
-    req.session.userData.checks = middleware.compareAnswers(question_datas, userQuestionResult.question_id, userQuestionResult.question_answer, req);
+  console.log("The user entered the question-user-submit POST route");
+  
+  // Get the data
+  userQuestionResult.question_id = req.session.userData.questions[req.session.userData.questions.length-1]._id;
+  userQuestionResult.question_answer = req.body.answer;
     
-  // Redirect to the result page
-  console.log("The player chose the answer: " + userQuestionResult.question_answer);
-  res.redirect("result");
+    //Compare the data
+    
+    Question.findById(userQuestionResult.question_id, function(err, correctQuestion){
+      if (err){
+        console.log(err);
+      }
+      
+      if (userQuestionResult.question_answer == correctQuestion.correctChoice){
+        req.session.userData.checks = true;
+        req.session.userData.scoreboard.score++;
+        console.log("Current userData status is :" + req.session.userData.checks);
+      } else {
+        req.session.userData.checks = false;
+         console.log("Current userData status is :" + req.session.userData.checks);
+      }
+      
+      // Redirect to the result page
+      console.log("The player chose the answer: " + userQuestionResult.question_answer);
+      res.redirect("result");
+      
+    });
+    
+  
+  
+  // req.session.userData.checks = middleware.compareAnswers(question_datas, userQuestionResult.question_id, userQuestionResult.question_answer, req);
+
 });
 
 // Result GET route (Fetch the result page)
@@ -187,6 +222,7 @@ router.get("/result", middleware.localSession, (req, res) => {
     var correctOrNot = "INCORRECT";
     
     if (req.session.userData == undefined || req.session.userData.checks == null) {
+      console.log("Current userData status is :" + req.session.userData.checks);
       res.redirect("/");  
     } else if (req.session.userData.checks == true){
       correctOrNot = "CORRECT";

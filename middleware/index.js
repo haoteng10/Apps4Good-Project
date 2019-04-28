@@ -21,14 +21,21 @@ middlewareObj.compareAnswers = function compareAnswers(question_datas, id, userA
     var correctQuestionData = question_datas[id];
     if (correctQuestionData.correctChoice == userAnswer) {
         console.log("The player chose the correct answer.");
-        req.session.userData.checks == true;
         req.session.userData.scoreboard.score++;
         return true;
     } else {
-        req.session.userData.checks == false;
         console.log("The player chose the wrong answer. The correct answer is " + correctQuestionData.correctChoice);
     }
     return false;
+};
+
+middlewareObj.isIncludes = function isIncludes(req, inputQuestion){
+  req.session.userData.questions.forEach(function(question){
+    if (question._id == inputQuestion._id){
+      return true;
+      }
+    return false;
+  });
 };
 
 module.exports = middlewareObj;
