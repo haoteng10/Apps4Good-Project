@@ -1,5 +1,12 @@
 <% include ./partials/header %>
 	<div class="as-container">
+		
+		<% if (typeof input !== "undefined"){ %>
+			<div class="flash_message <%= input.type %>">
+				<p><%= input.message %></p>
+			</div>
+		<% } %>
+		
 		<form action="/start" method="post">
 			<h2>Please fill out your information!</h2>
 			

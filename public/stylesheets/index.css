@@ -205,3 +205,38 @@ input[type=submit]:hover {
   width: 80%;
   height: 40%;
 }
+
+.flash_message {
+  color: white;
+  opacity: 0;
+  border-radius: 2px;
+  margin: 3px;
+  padding: 6px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.flash_message p {
+    display: inline-block;
+    font-weight: 700;
+    color: white;
+    background: red;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    opacity: 0.9;
+    transition: opacity 0.1s ease;
+}
+
+.success_flash, .failure_flash {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.success_flash {
+  background: green;
+}
+
+.failure_flash {
+  background: red;
+}

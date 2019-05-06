@@ -25,7 +25,7 @@ router.get('/start', middleware.localSession, (req, res) => {
 // USER DATA POST ROUTE
 
 
-router.post('/start', (req,res) => {
+router.post('/start', middleware.localSession, (req,res) => {
   console.log("The player's name is " + req.body.player_name);
   console.log("The player's grade level is " + req.body.player_grade);
   if (req.body.player_name !== "" && req.body.player_grade != undefined){
@@ -49,7 +49,13 @@ router.post('/start', (req,res) => {
     console.log(req.session.userData.name + " is playing the game.");
     res.redirect("question");
   } else {
-    res.redirect("start");
+    
+    var input = {
+      type: "failure_flash",
+      message: "Please enter your credentials"
+    };
+    
+    res.render("start", {input: input});
   }
 
 });

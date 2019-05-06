@@ -5,10 +5,10 @@
 			<% if (chosenQuestion.image != undefined) { %>
 				<img src="<%= chosenQuestion.image %>" alt="image"> <p></p>
 			<% } %>
-			<label class="container"><input type="radio" name="answer" value="<%= chosenQuestion.selections[0] %>"><%= chosenQuestion.selections[0] %><span class="checkmark"></span><br></label>
-			<label class="container"><input type="radio" name="answer" value="<%= chosenQuestion.selections[1] %>"><%= chosenQuestion.selections[1] %><span class="checkmark"></span><br></label>
-			<label class="container"><input type="radio" name="answer" value="<%= chosenQuestion.selections[2] %>"><%= chosenQuestion.selections[2] %><span class="checkmark"></span><br></label>
-			<label class="container"><input type="radio" name="answer" value="<%= chosenQuestion.selections[3] %>"><%= chosenQuestion.selections[3] %><span class="checkmark"></span><br></label>
+			
+			<% chosenQuestion.selections.forEach(function(individualSelection){ %>
+				<label class="container"><input type="radio" name="answer" value="<%= individualSelection %>"><%= individualSelection %><span class="checkmark"></span><br></label>
+			<% }) %>
 			<input type="submit" value="Submit">
 		</form>
 	</div>
