@@ -1,6 +1,14 @@
 <% include ./partials/header %>
 	<div class="as-container">
 		<h1>Your answer is <span class="resultText"><%= correctOrNot %></span>!</h1>
+		<% if (correctOrNot == "INCORRECT"){ %>
+			<img style="width: 12%; height: 15%;" src="https://www.nicepng.com/png/detail/68-685717_pol-politically-incorrect-thread-library-cartoon.png"></img>
+			<p>
+		<%  } else { %>
+			<img style="width: 20%; height: 35%" src="https://media.giphy.com/media/9w9Bpoiddg72U/giphy.gif"></img>
+			<p>
+			<% } %>
+
 		<a href="question" id="nextQuestion" class="button">Click Here To Answer The Next Question</a>
 	</div>
 <% include ./partials/footer %>
