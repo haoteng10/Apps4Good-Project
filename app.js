@@ -18,7 +18,7 @@ var url = "mongodb://admin:8Hdm6fxQfLr7K42@ds053305.mlab.com:53305/math-success"
 mongoose.connect(url, { useNewUrlParser: true, useFindAndModify: false });
 
 // Seeding the DB (Please comment the line below if you want to save the data)
-SeedDB();
+//SeedDB();
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
