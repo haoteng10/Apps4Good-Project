@@ -174,8 +174,8 @@ router.post('/question', (req, res)=> {
     }
   }
   
-  if (req.body.imageUrl !== ""){
-    createdQuestion.image = req.body.imageUrl; 
+  if (req.body.question.imageUrl !== ""){
+    createdQuestion.image = req.body.question.imageUrl;
   }
   
   Question.create(createdQuestion, (err, newlyCreated)=>{
