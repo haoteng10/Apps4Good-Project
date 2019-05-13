@@ -177,6 +177,10 @@ input[type=submit]:hover {
   margin: 3% 3.33% 3% 3.33%;
 }
 
+.introduction {
+  float: left;
+}
+
 .introduction, .box-info {
   margin: 3% 40%;
   margin-top: 4px;
@@ -239,4 +243,8 @@ input[type=submit]:hover {
 
 .failure_flash {
   background: red;
+}
+
+.columns {
+  column-count: 2;
 }
