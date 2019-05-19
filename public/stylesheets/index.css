@@ -182,7 +182,7 @@ input[type=submit]:hover {
 }
 
 .introduction, .box-info {
-  margin: 3% 40%;
+  margin: 3% 20%;
   margin-top: 4px;
   border: 4px solid;
   border-color: white;
@@ -245,6 +245,42 @@ input[type=submit]:hover {
   background: red;
 }
 
-.columns {
-  column-count: 2;
+.left-column {
+  flex: 80%;
+  transition: flex 0.5s linear;
+}
+
+.right-column {
+  flex: 20%;
+  background-color: gray;
+  /* visibility: hidden;
+  opacity: 0; */
+  transition: flex 1s, background-color 1.5s linear;
+}
+
+/*
+.left-column:hover + .right-column {
+  visibility: visible;
+  opacity: 1;
+} */
+
+.left-column:hover{
+  flex: 40%;
+}
+
+.left-column:hover + .right-column{
+  flex: 60%;
+  background-color: #236844;
+}
+
+.right-column img {
+  width: 750px;
+  height: 500px;
+  border: 3px solid black;
+  margin: 2% 5%;
+}
+
+/* Clear floats after the columns */
+.row {
+  display: flex;
 }
